@@ -42,9 +42,12 @@ public:
 private:
     void cmdVelCallback(const geometry_msgs::msg::Twist::SharedPtr msg) {
         // 限幅
-        vx_ = std::clamp(msg->linear.x, -max_vx_, max_vx_);
-        vy_ = std::clamp(msg->linear.y, -max_vy_, max_vy_);
-        vyaw_ = std::clamp(msg->angular.z, -max_vyaw_, max_vyaw_);
+        // vx_ = std::clamp(msg->linear.x, -max_vx_, max_vx_);
+        // vy_ = std::clamp(msg->linear.y, -max_vy_, max_vy_);
+        // vyaw_ = std::clamp(msg->angular.z, -max_vyaw_, max_vyaw_);
+        vx_ = msg->linear.x;
+        vy_ = msg->linear.y;
+        vyaw_ = msg->angular.z;
     }
 
     void timerCallback() {
@@ -61,7 +64,7 @@ private:
     rclcpp::TimerBase::SharedPtr timer_;
 
     // 运动参数
-    double vx_ = -0.1;
+    double vx_ = 1;
     double vy_ = 0.0;
     double vyaw_ = 0.0;
     double max_vx_ = 1.5;
